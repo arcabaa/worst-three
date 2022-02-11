@@ -1,11 +1,12 @@
-import React from 'react'
-
+import React from "react";
+import { PlayerSearch } from "./components/playerSearch";
 const App = () => {
-    return (
-        <div>
-            <h1>yo</h1>
-        </div>
-    )
-}
+  return (
+    <div>
+      <PlayerSearch />
+      <h1>yo</h1>
+    </div>
+  );
+};
 
-export default App
+export default App;

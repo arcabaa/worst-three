@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Form, Input, Button, Checkbox } from "antd";
-import axios from "axios";
+import { Form, Input, Button } from "antd";
 import { axiosWithHeader } from "../utils/axiosWithHeaders";
 
 export const PlayerSearch = () => {
@@ -11,14 +10,6 @@ export const PlayerSearch = () => {
       "/lol/summoner/v4/summoners/by-name/floppyman11"
     );
     console.log(getSummoner.data);
-    // axios
-    //   .get("https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/", {
-    //     params: { summonerName: values.summonerName },
-    //     headers: token,
-    //   })
-    //   .then(function (response) {
-    //     console.log(response);
-    //   });
   };
 
   const onFinishFailed = (errorInfo) => {

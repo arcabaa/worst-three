@@ -1,45 +1,70 @@
 import React from "react";
 import styled from "styled-components";
-import { Form, Input, Button } from "antd";
-import { axiosWithHeader } from "../utils/axiosWithHeaders";
+import { Form, Input } from "antd";
+import axios from 'axios'
 
-export const PlayerSearch = () => {
+export const PlayerSearch = ({ isLoading, setKda, setSummoner }) => {
   const onFinish = async (values) => {
-    console.log("Success:", values);
-    const getSummoner = await axiosWithHeader.get(
-      "/lol/summoner/v4/summoners/by-name/floppyman11"
-    );
-    console.log(getSummoner.data);
+		try {
+			isLoading(true)
+			setSummoner(values.summonerName)
+
+			// get summoner puuid
+			const summonerPuuid = await axios.get(`http://localhost:4000/summoner/${values.summonerName}`)
+			
+			// get summoner last 50 matches
+			const summonerData = JSON.stringify({"puuid":`${summonerPuuid.data.puuid}`})
+			const matchesConfig = {
+				method: 'post',
+				url: 'http://localhost:4000/matches/',
+				headers: { 
+					'Content-Type': 'application/json'
+				},
+				data: summonerData
+			};
+			const matches = await axios(matchesConfig)
+
+			// get KDA
+			const kdaData = { "matches": matches.data.matches, "puuid": summonerPuuid.data.puuid }
+			const kdaConfig = {
+				method: 'post',
+				url: 'http://localhost:4000/matchData',
+				headers: { 
+					'Content-Type': 'application/json'
+				},
+				data: kdaData
+			};
+
+			const kdaRes = await axios(kdaConfig)
+			const kda = kdaRes.data.results
+			setKda(kda)
+			isLoading(false)
+		} catch (err) {
+			console.error(err)
+			isLoading(false)
+		}
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
   return (
     <SummonerForm>
       <Form
         name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <Form.Item
-          label="Summoner Name"
           name="summonerName"
           rules={[
-            { required: true, message: "Please input your Summoner Name" },
+            { required: true, message: "Please enter a summoner name" },
           ]}
         >
-          <Input />
-        </Form.Item>
-
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
+          <Input size="large" />
         </Form.Item>
       </Form>
     </SummonerForm>
@@ -47,5 +72,6 @@ export const PlayerSearch = () => {
 };
 
 const SummonerForm = styled.div`
-  margin: 25px;
+	width: 50%;
+	margin: 0 auto;
 `;

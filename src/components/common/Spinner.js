@@ -3,7 +3,7 @@ import { Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 
-const Loading = () => {
+const Spinner = () => {
   const antIcon = <LoadingOutlined style={{ fontSize: 45 }} spin />;
   return (
     <StyledDiv>
@@ -12,7 +12,7 @@ const Loading = () => {
   );
 };
 
-export default Loading;
+export default Spinner;
 
 const StyledDiv = styled.div`
   position: absolute;

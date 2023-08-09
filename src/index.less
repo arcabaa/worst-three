@@ -1,11 +1,45 @@
-@import "antd/dist/antd.dark.less";
-
-/*
-    Override ant.design styles here:
-
-*/
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
 
 body {
     background: #424250 !important;
     color: #FFFFFF !important;
+		font-family: 'Roboto Mono', sans-serif;
+}
+
+.ResultsContainer {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.first {
+	display: flex;
+	flex-direction: row;
+	background-color: #C9B037;
+	height: 60vh;
+	width: 10vw;
+	justify-content: center;
+}
+
+.second {
+	display: flex;
+	flex-direction: row;
+	background-color: #B4B4B4;
+	height: 50vh;
+	width: 10vw;
+	margin-right: .5vw;
+	justify-content: center;
+}
+
+.third {
+	display: flex;
+	flex-direction: row;
+	background-color: #6A3805;
+	height: 40vh;
+	width: 10vw;
+	margin-left: .5vw;
+	justify-content: center;
 }

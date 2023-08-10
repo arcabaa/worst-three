@@ -5,21 +5,20 @@ import styled from "styled-components";
 
 const Spinner = () => {
   const antIcon = <LoadingOutlined style={{ fontSize: 45 }} spin />;
+
   return (
-    <StyledDiv>
+    <SpinnerContainer>
       <Spin indicator={antIcon} />
-    </StyledDiv>
+			<p style={{ marginTop: `5vh` }}>Calculating worst three performances...</p>
+    </SpinnerContainer>	
   );
 };
 
 export default Spinner;
 
-const StyledDiv = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -50px;
-  margin-left: -50px;
-  width: 100px;
-  height: 100px;
+const SpinnerContainer = styled.div`
+  display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 `;
